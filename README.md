@@ -1,4 +1,4 @@
-# Trabalho-de-Conclusao-de-Curso
+# Trabalho-de-Conclusao-de-Disciplina
 Trabalho de Conclusão de Disciplina de Implantação e Manutenção de Sistemas dado pelo professor Alexsander William Spritze. Desenvolvidos por Érick Eduardo da Silva Schmitz e Julia Machado da Silveira. 
 O objetivo do trabalho é desenvolver as competências necessárias para criar um protótipo através das técnicas do CRUD (Create, Read, Update, Delete).
 A ideia consiste na criação de um sistema de cadastro de clientes para uma empresa de controle de pragas.
