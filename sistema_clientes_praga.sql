@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Ago-2021 às 19:04
+-- Tempo de geração: 27/08/2021 às 21:49
 -- Versão do servidor: 10.4.20-MariaDB
--- versão do PHP: 8.0.9
+-- Versão do PHP: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `clientes`
+-- Estrutura para tabela `agendamento`
+--
+
+CREATE TABLE `agendamento` (
+  `id_agendamento` int(11) NOT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  `id_servico` int(11) DEFAULT NULL,
+  `id_funcionario` int(11) DEFAULT NULL,
+  `data_agendamento` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -39,7 +53,7 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `clientes`
+-- Despejando dados para a tabela `clientes`
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nome_cliente`, `cpf_cliente`, `cnpj_cliente`, `endereco_cliente`, `telefone_cliente`, `celular_cliente`, `email_cliente`) VALUES
@@ -51,7 +65,7 @@ INSERT INTO `clientes` (`id_cliente`, `nome_cliente`, `cpf_cliente`, `cnpj_clien
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `funcionarios`
+-- Estrutura para tabela `funcionarios`
 --
 
 CREATE TABLE `funcionarios` (
@@ -63,7 +77,7 @@ CREATE TABLE `funcionarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `funcionarios`
+-- Despejando dados para a tabela `funcionarios`
 --
 
 INSERT INTO `funcionarios` (`id_funcionario`, `nome_funcionario`, `data_nasc_funcionario`, `cpf_funcionario`, `senha_login`) VALUES
@@ -76,7 +90,7 @@ INSERT INTO `funcionarios` (`id_funcionario`, `nome_funcionario`, `data_nasc_fun
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `pragas`
+-- Estrutura para tabela `pragas`
 --
 
 CREATE TABLE `pragas` (
@@ -85,7 +99,7 @@ CREATE TABLE `pragas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `pragas`
+-- Despejando dados para a tabela `pragas`
 --
 
 INSERT INTO `pragas` (`id_praga`, `nome_praga`) VALUES
@@ -99,7 +113,7 @@ INSERT INTO `pragas` (`id_praga`, `nome_praga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `produtos`
+-- Estrutura para tabela `produtos`
 --
 
 CREATE TABLE `produtos` (
@@ -113,7 +127,7 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `produtos`
+-- Despejando dados para a tabela `produtos`
 --
 
 INSERT INTO `produtos` (`id_produto`, `nome_produto`, `descricao_produto`, `principioativo_produto`, `grupoquimico_produto`, `fabricante_produto`, `registro_produto`) VALUES
@@ -125,7 +139,7 @@ INSERT INTO `produtos` (`id_produto`, `nome_produto`, `descricao_produto`, `prin
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `produtos_praga`
+-- Estrutura para tabela `produtos_praga`
 --
 
 CREATE TABLE `produtos_praga` (
@@ -135,7 +149,7 @@ CREATE TABLE `produtos_praga` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `produtos_praga`
+-- Despejando dados para a tabela `produtos_praga`
 --
 
 INSERT INTO `produtos_praga` (`id_produto_praga`, `id_produto`, `id_praga`) VALUES
@@ -148,55 +162,65 @@ INSERT INTO `produtos_praga` (`id_produto_praga`, `id_produto`, `id_praga`) VALU
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `servicos`
+-- Estrutura para tabela `servicos`
 --
 
 CREATE TABLE `servicos` (
   `id_servico` int(11) NOT NULL,
   `nome_servico` varchar(50) NOT NULL,
-  `descricao_servico` varchar(255) DEFAULT NULL
+  `descricao_servico` varchar(255) DEFAULT NULL,
+  `id_produto_praga` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `servicos`
+-- Despejando dados para a tabela `servicos`
 --
 
-INSERT INTO `servicos` (`id_servico`, `nome_servico`, `descricao_servico`) VALUES
-(1, 'Desintetização', NULL),
-(2, 'Desintetização spot clean', NULL),
-(3, 'Higienização da caixa da água', NULL),
-(4, 'Limpeza de sofás, cadeiras, estofados, tapetes e c', NULL);
+INSERT INTO `servicos` (`id_servico`, `nome_servico`, `descricao_servico`, `id_produto_praga`) VALUES
+(1, 'Desintetização', NULL, NULL),
+(2, 'Desintetização spot clean', NULL, NULL),
+(3, 'Higienização da caixa da água', NULL, NULL),
+(4, 'Limpeza de sofás, cadeiras, estofados, tapetes e c', NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `clientes`
+-- Índices de tabela `agendamento`
+--
+ALTER TABLE `agendamento`
+  ADD PRIMARY KEY (`id_agendamento`),
+  ADD KEY `fk_id_cliente` (`id_cliente`),
+  ADD KEY `fk_id_servico` (`id_servico`),
+  ADD KEY `fk_id_funcionario` (`id_funcionario`);
+
+--
+-- Índices de tabela `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Índices para tabela `funcionarios`
+-- Índices de tabela `funcionarios`
 --
 ALTER TABLE `funcionarios`
   ADD PRIMARY KEY (`id_funcionario`);
 
 --
--- Índices para tabela `pragas`
+-- Índices de tabela `pragas`
 --
 ALTER TABLE `pragas`
   ADD PRIMARY KEY (`id_praga`);
 
 --
--- Índices para tabela `produtos`
+-- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id_produto`);
 
 --
--- Índices para tabela `produtos_praga`
+-- Índices de tabela `produtos_praga`
 --
 ALTER TABLE `produtos_praga`
   ADD PRIMARY KEY (`id_produto_praga`),
@@ -204,21 +228,36 @@ ALTER TABLE `produtos_praga`
   ADD KEY `id_praga` (`id_praga`);
 
 --
--- Índices para tabela `servicos`
+-- Índices de tabela `servicos`
 --
 ALTER TABLE `servicos`
-  ADD PRIMARY KEY (`id_servico`);
+  ADD PRIMARY KEY (`id_servico`),
+  ADD KEY `id_produto_praga` (`id_produto_praga`);
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `produtos_praga`
+-- Restrições para tabelas `agendamento`
+--
+ALTER TABLE `agendamento`
+  ADD CONSTRAINT `fk_id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
+  ADD CONSTRAINT `fk_id_funcionario` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionarios` (`id_funcionario`),
+  ADD CONSTRAINT `fk_id_servico` FOREIGN KEY (`id_servico`) REFERENCES `servicos` (`id_servico`);
+
+--
+-- Restrições para tabelas `produtos_praga`
 --
 ALTER TABLE `produtos_praga`
   ADD CONSTRAINT `produtos_praga_ibfk_1` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id_produto`),
   ADD CONSTRAINT `produtos_praga_ibfk_2` FOREIGN KEY (`id_praga`) REFERENCES `pragas` (`id_praga`);
+
+--
+-- Restrições para tabelas `servicos`
+--
+ALTER TABLE `servicos`
+  ADD CONSTRAINT `servicos_ibfk_1` FOREIGN KEY (`id_produto_praga`) REFERENCES `produtos_praga` (`id_produto_praga`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
