@@ -1,0 +1,8 @@
+Save Format v3.0(19990112)
+@begin Unchecked
+@end;
+@begin Targets
+ 0 "sistema_clientes.pbt";
+@end;
+DefaultTarget "sistema_clientes.pbt";
+DefaultRemoteTarget "sistema_clientes.pbt";
