@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/08/2021 às 21:49
+-- Tempo de geração: 18/10/2021 às 19:02
 -- Versão do servidor: 10.4.20-MariaDB
 -- Versão do PHP: 8.0.9
 
@@ -32,8 +32,23 @@ CREATE TABLE `agendamento` (
   `id_cliente` int(11) DEFAULT NULL,
   `id_servico` int(11) DEFAULT NULL,
   `id_funcionario` int(11) DEFAULT NULL,
-  `data_agendamento` date DEFAULT NULL
+  `data_agendamento` date DEFAULT NULL,
+  `qtd_aplicacao` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Despejando dados para a tabela `agendamento`
+--
+
+INSERT INTO `agendamento` (`id_agendamento`, `id_cliente`, `id_servico`, `id_funcionario`, `data_agendamento`, `qtd_aplicacao`) VALUES
+(1, 3, 3, NULL, '2021-09-23', 7),
+(2, 4, 3, NULL, '2021-09-23', 8),
+(3, 4, 3, NULL, '2021-10-03', 4),
+(4, 5, 3, NULL, '2021-09-23', 5),
+(5, 4, 1, NULL, '2021-10-01', 7),
+(6, 1, 3, NULL, '2021-09-30', 10),
+(7, 2, 3, NULL, '2021-09-29', 9),
+(8, 3, 4, NULL, '2021-09-24', 12);
 
 -- --------------------------------------------------------
 
@@ -57,10 +72,12 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nome_cliente`, `cpf_cliente`, `cnpj_cliente`, `endereco_cliente`, `telefone_cliente`, `celular_cliente`, `email_cliente`) VALUES
-(1, 'Afonsinho Lopez', '68420415030', NULL, 'Rua Florencio', NULL, '3240028922', 'Afonsinho@gmail.com'),
+(1, 'Afonsinho Lopez', '68420415030', NULL, 'Rua Florêncio Esteves', NULL, '3240028934', 'Afonsinho@gmail.com'),
 (2, 'Amanda Souza', '29658034080', NULL, 'Rua Amoêdo', NULL, '4888994321', 'AmandaSouza@gmail.com'),
 (3, 'Jonas Schmitz', '38288294065', NULL, 'Rua Cambridge', NULL, '4799778654', 'SchmitzJonas@gmail.com'),
-(4, 'Ronaldo Cardoso', '31529689066', NULL, 'Rua Araranguá', NULL, '4899375644', 'ronacard@gmail.com');
+(4, 'Ronaldo Cardoso', '31529689066', NULL, 'Rua Araranguá Silveira', NULL, '4899375644', 'ronacard@gmail.com'),
+(5, 'Luiz Machado da Silva', NULL, NULL, 'Rua Imigrantes', NULL, '4988334567', 'LuizSilva@gmail.com'),
+(6, 'Ricardo de Souza Medeiros', NULL, NULL, 'Rua Joaquim Batista dos Santos', NULL, '47996745532', 'ricardinho@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -82,10 +99,10 @@ CREATE TABLE `funcionarios` (
 
 INSERT INTO `funcionarios` (`id_funcionario`, `nome_funcionario`, `data_nasc_funcionario`, `cpf_funcionario`, `senha_login`) VALUES
 (1, 'Ednaldo de Souza', '1986-03-23', '91644828049', '40028'),
-(2, 'Andreia Fernandes', '1996-03-02', '02684477051', '33214'),
+(2, 'Andreia Fernandes', '1996-03-02', '02684477051', '12345'),
 (3, 'Paulo Moreira', '1990-05-17', '09650328092', '90901'),
 (4, 'Mario Rezende', '1991-05-06', '89836954040', '10134'),
-(5, 'Alessandra da Silva', '1997-08-30', '83055321006', '88674');
+(5, 'Alessandra da Silva', '1997-08-30', '83055321006', '12345');
 
 -- --------------------------------------------------------
 
